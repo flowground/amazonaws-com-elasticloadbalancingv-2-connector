@@ -1,0 +1,63 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "ListenerArn": {
+                    "description": "The Amazon Resource Names (ARN) of the listener.",
+                    "type": "string"
+                },
+                "Marker": {
+                    "description": "The marker for the next set of results. (You received this marker from a previous call.)",
+                    "type": "string"
+                },
+                "PageSize": {
+                    "description": "The maximum number of results to return with this call.",
+                    "maximum": 400,
+                    "minimum": 1,
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "ListenerArn"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

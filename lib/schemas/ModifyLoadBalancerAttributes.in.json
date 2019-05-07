@@ -1,0 +1,93 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "example": {
+                "Attributes": [
+                    {
+                        "Key": "access_logs.s3.enabled",
+                        "Value": "true"
+                    },
+                    {
+                        "Key": "access_logs.s3.bucket",
+                        "Value": "my-loadbalancer-logs"
+                    },
+                    {
+                        "Key": "access_logs.s3.prefix",
+                        "Value": "myapp"
+                    }
+                ],
+                "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188"
+            },
+            "properties": {
+                "Attributes": {
+                    "description": "The load balancer attributes.",
+                    "items": {
+                        "description": "Information about a load balancer attribute.",
+                        "properties": {
+                            "Key": {
+                                "description": "<p>The name of the attribute.</p> <p>The following attributes are supported by both Application Load Balancers and Network Load Balancers:</p> <ul> <li> <p> <code>access_logs.s3.enabled</code> - Indicates whether access logs are enabled. The value is <code>true</code> or <code>false</code>. The default is <code>false</code>.</p> </li> <li> <p> <code>access_logs.s3.bucket</code> - The name of the S3 bucket for the access logs. This attribute is required if access logs are enabled. The bucket must exist in the same region as the load balancer and have a bucket policy that grants Elastic Load Balancing permissions to write to the bucket.</p> </li> <li> <p> <code>access_logs.s3.prefix</code> - The prefix for the location in the S3 bucket for the access logs.</p> </li> <li> <p> <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is <code>true</code> or <code>false</code>. The default is <code>false</code>.</p> </li> </ul> <p>The following attributes are supported by only Application Load Balancers:</p> <ul> <li> <p> <code>idle_timeout.timeout_seconds</code> - The idle timeout value, in seconds. The valid range is 1-4000 seconds. The default is 60 seconds.</p> </li> <li> <p> <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The value is <code>true</code> or <code>false</code>. The default is <code>true</code>.</p> </li> </ul> <p>The following attributes are supported by only Network Load Balancers:</p> <ul> <li> <p> <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled. The value is <code>true</code> or <code>false</code>. The default is <code>false</code>.</p> </li> </ul>",
+                                "maxLength": 256,
+                                "pattern": "^[a-zA-Z0-9._]+$",
+                                "type": "string"
+                            },
+                            "Value": {
+                                "description": "The value of the attribute.",
+                                "maxLength": 1024,
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "maxItems": 20,
+                    "type": "array"
+                },
+                "LoadBalancerArn": {
+                    "description": "The Amazon Resource Name (ARN) of the load balancer.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "LoadBalancerArn",
+                "Attributes"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

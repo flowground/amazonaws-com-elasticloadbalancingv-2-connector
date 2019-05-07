@@ -1,0 +1,72 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "Certificates": {
+                    "description": "The certificate to remove. You can specify one certificate per call. Set <code>CertificateArn</code> to the certificate ARN but do not set <code>IsDefault</code>.",
+                    "items": {
+                        "description": "Information about an SSL server certificate.",
+                        "properties": {
+                            "CertificateArn": {
+                                "description": "The Amazon Resource Name (ARN) of the certificate.",
+                                "type": "string"
+                            },
+                            "IsDefault": {
+                                "description": "Indicates whether the certificate is the default certificate. Do not set <code>IsDefault</code> when specifying a certificate as an input parameter.",
+                                "type": "boolean"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "ListenerArn": {
+                    "description": "The Amazon Resource Name (ARN) of the listener.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ListenerArn",
+                "Certificates"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

@@ -1,0 +1,79 @@
+{
+    "type": "object",
+    "properties": {
+        "Marker": {
+            "required": false,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "example": {
+                "TargetGroupArns": [
+                    "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067"
+                ]
+            },
+            "properties": {
+                "LoadBalancerArn": {
+                    "description": "The Amazon Resource Name (ARN) of the load balancer.",
+                    "type": "string"
+                },
+                "Marker": {
+                    "description": "The marker for the next set of results. (You received this marker from a previous call.)",
+                    "type": "string"
+                },
+                "Names": {
+                    "description": "The names of the target groups.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "PageSize": {
+                    "description": "The maximum number of results to return with this call.",
+                    "maximum": 400,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "TargetGroupArns": {
+                    "description": "The Amazon Resource Names (ARN) of the target groups.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

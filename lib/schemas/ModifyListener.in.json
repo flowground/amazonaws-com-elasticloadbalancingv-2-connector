@@ -1,0 +1,339 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "example": {
+                "Certificates": [
+                    {
+                        "CertificateArn": "arn:aws:iam::123456789012:server-certificate/my-new-server-cert"
+                    }
+                ],
+                "ListenerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/0467ef3c8400ae65"
+            },
+            "properties": {
+                "Certificates": {
+                    "description": "<p>[HTTPS and TLS listeners] The default SSL server certificate. You must provide exactly one certificate. Set <code>CertificateArn</code> to the certificate ARN but do not set <code>IsDefault</code>.</p> <p>To create a certificate list, use <a>AddListenerCertificates</a>.</p>",
+                    "items": {
+                        "description": "Information about an SSL server certificate.",
+                        "properties": {
+                            "CertificateArn": {
+                                "description": "The Amazon Resource Name (ARN) of the certificate.",
+                                "type": "string"
+                            },
+                            "IsDefault": {
+                                "description": "Indicates whether the certificate is the default certificate. Do not set <code>IsDefault</code> when specifying a certificate as an input parameter.",
+                                "type": "boolean"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "DefaultActions": {
+                    "description": "<p>The actions for the default rule. The rule must include one forward action or one or more fixed-response actions.</p> <p>If the action type is <code>forward</code>, you specify a target group. The protocol of the target group must be HTTP or HTTPS for an Application Load Balancer. The protocol of the target group must be TCP or TLS for a Network Load Balancer.</p> <p>[HTTPS listeners] If the action type is <code>authenticate-oidc</code>, you authenticate users through an identity provider that is OpenID Connect (OIDC) compliant.</p> <p>[HTTPS listeners] If the action type is <code>authenticate-cognito</code>, you authenticate users through the user pools supported by Amazon Cognito.</p> <p>[Application Load Balancer] If the action type is <code>redirect</code>, you redirect specified client requests from one URL to another.</p> <p>[Application Load Balancer] If the action type is <code>fixed-response</code>, you drop specified client requests and return a custom HTTP response.</p>",
+                    "items": {
+                        "description": "Information about an action.",
+                        "properties": {
+                            "AuthenticateCognitoConfig": {
+                                "description": "[HTTPS listeners] Information for using Amazon Cognito to authenticate users. Specify only when <code>Type</code> is <code>authenticate-cognito</code>.",
+                                "properties": {
+                                    "AuthenticationRequestExtraParams": {
+                                        "description": "The query parameters (up to 10) to include in the redirect request to the authorization endpoint.",
+                                        "items": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "value": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "OnUnauthenticatedRequest": {
+                                        "description": "<p>The behavior if the user is not authenticated. The following are possible values:</p> <ul> <li> <p>deny<code/> - Return an HTTP 401 Unauthorized error.</p> </li> <li> <p>allow<code/> - Allow the request to be forwarded to the target.</p> </li> <li> <p>authenticate<code/> - Redirect the request to the IdP authorization endpoint. This is the default value.</p> </li> </ul>",
+                                        "enum": [
+                                            "deny",
+                                            "allow",
+                                            "authenticate"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "Scope": {
+                                        "description": "<p>The set of user claims to be requested from the IdP. The default is <code>openid</code>.</p> <p>To verify which scope values your IdP supports and how to separate multiple values, see the documentation for your IdP.</p>",
+                                        "type": "string"
+                                    },
+                                    "SessionCookieName": {
+                                        "description": "The name of the cookie used to maintain session information. The default is AWSELBAuthSessionCookie.",
+                                        "type": "string"
+                                    },
+                                    "SessionTimeout": {
+                                        "description": "The maximum duration of the authentication session, in seconds. The default is 604800 seconds (7 days).",
+                                        "type": "integer"
+                                    },
+                                    "UserPoolArn": {
+                                        "description": "The Amazon Resource Name (ARN) of the Amazon Cognito user pool.",
+                                        "type": "string"
+                                    },
+                                    "UserPoolClientId": {
+                                        "description": "The ID of the Amazon Cognito user pool client.",
+                                        "type": "string"
+                                    },
+                                    "UserPoolDomain": {
+                                        "description": "The domain prefix or fully-qualified domain name of the Amazon Cognito user pool.",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "UserPoolArn",
+                                    "UserPoolClientId",
+                                    "UserPoolDomain"
+                                ],
+                                "type": "object"
+                            },
+                            "AuthenticateOidcConfig": {
+                                "description": "[HTTPS listeners] Information about an identity provider that is compliant with OpenID Connect (OIDC). Specify only when <code>Type</code> is <code>authenticate-oidc</code>.",
+                                "properties": {
+                                    "AuthenticationRequestExtraParams": {
+                                        "description": "The query parameters (up to 10) to include in the redirect request to the authorization endpoint.",
+                                        "items": {
+                                            "properties": {
+                                                "key": {
+                                                    "type": "string"
+                                                },
+                                                "value": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "AuthorizationEndpoint": {
+                                        "description": "The authorization endpoint of the IdP. This must be a full URL, including the HTTPS protocol, the domain, and the path.",
+                                        "type": "string"
+                                    },
+                                    "ClientId": {
+                                        "description": "The OAuth 2.0 client identifier.",
+                                        "type": "string"
+                                    },
+                                    "ClientSecret": {
+                                        "description": "The OAuth 2.0 client secret. This parameter is required if you are creating a rule. If you are modifying a rule, you can omit this parameter if you set <code>UseExistingClientSecret</code> to true.",
+                                        "type": "string"
+                                    },
+                                    "Issuer": {
+                                        "description": "The OIDC issuer identifier of the IdP. This must be a full URL, including the HTTPS protocol, the domain, and the path.",
+                                        "type": "string"
+                                    },
+                                    "OnUnauthenticatedRequest": {
+                                        "description": "<p>The behavior if the user is not authenticated. The following are possible values:</p> <ul> <li> <p>deny<code/> - Return an HTTP 401 Unauthorized error.</p> </li> <li> <p>allow<code/> - Allow the request to be forwarded to the target.</p> </li> <li> <p>authenticate<code/> - Redirect the request to the IdP authorization endpoint. This is the default value.</p> </li> </ul>",
+                                        "enum": [
+                                            "deny",
+                                            "allow",
+                                            "authenticate"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "Scope": {
+                                        "description": "<p>The set of user claims to be requested from the IdP. The default is <code>openid</code>.</p> <p>To verify which scope values your IdP supports and how to separate multiple values, see the documentation for your IdP.</p>",
+                                        "type": "string"
+                                    },
+                                    "SessionCookieName": {
+                                        "description": "The name of the cookie used to maintain session information. The default is AWSELBAuthSessionCookie.",
+                                        "type": "string"
+                                    },
+                                    "SessionTimeout": {
+                                        "description": "The maximum duration of the authentication session, in seconds. The default is 604800 seconds (7 days).",
+                                        "type": "integer"
+                                    },
+                                    "TokenEndpoint": {
+                                        "description": "The token endpoint of the IdP. This must be a full URL, including the HTTPS protocol, the domain, and the path.",
+                                        "type": "string"
+                                    },
+                                    "UseExistingClientSecret": {
+                                        "description": "Indicates whether to use the existing client secret when modifying a rule. If you are creating a rule, you can omit this parameter or set it to false.",
+                                        "type": "boolean"
+                                    },
+                                    "UserInfoEndpoint": {
+                                        "description": "The user info endpoint of the IdP. This must be a full URL, including the HTTPS protocol, the domain, and the path.",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "Issuer",
+                                    "AuthorizationEndpoint",
+                                    "TokenEndpoint",
+                                    "UserInfoEndpoint",
+                                    "ClientId"
+                                ],
+                                "type": "object"
+                            },
+                            "FixedResponseConfig": {
+                                "description": "[Application Load Balancer] Information for creating an action that returns a custom HTTP response. Specify only when <code>Type</code> is <code>fixed-response</code>.",
+                                "properties": {
+                                    "ContentType": {
+                                        "description": "<p>The content type.</p> <p>Valid Values: text/plain | text/css | text/html | application/javascript | application/json</p>",
+                                        "maxLength": 32,
+                                        "minLength": 0,
+                                        "type": "string"
+                                    },
+                                    "MessageBody": {
+                                        "description": "The message.",
+                                        "maxLength": 1024,
+                                        "minLength": 0,
+                                        "type": "string"
+                                    },
+                                    "StatusCode": {
+                                        "description": "The HTTP response code (2XX, 4XX, or 5XX).",
+                                        "pattern": "^(2|4|5)\\d\\d$",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "StatusCode"
+                                ],
+                                "type": "object"
+                            },
+                            "Order": {
+                                "description": "The order for the action. This value is required for rules with multiple actions. The action with the lowest value for order is performed first. The final action to be performed must be a <code>forward</code> or a <code>fixed-response</code> action.",
+                                "maximum": 50000,
+                                "minimum": 1,
+                                "type": "integer"
+                            },
+                            "RedirectConfig": {
+                                "description": "[Application Load Balancer] Information for creating a redirect action. Specify only when <code>Type</code> is <code>redirect</code>.",
+                                "properties": {
+                                    "Host": {
+                                        "description": "The hostname. This component is not percent-encoded. The hostname can contain #{host}.",
+                                        "maxLength": 128,
+                                        "minLength": 1,
+                                        "type": "string"
+                                    },
+                                    "Path": {
+                                        "description": "The absolute path, starting with the leading \"/\". This component is not percent-encoded. The path can contain #{host}, #{path}, and #{port}.",
+                                        "maxLength": 128,
+                                        "minLength": 1,
+                                        "type": "string"
+                                    },
+                                    "Port": {
+                                        "description": "The port. You can specify a value from 1 to 65535 or #{port}.",
+                                        "type": "string"
+                                    },
+                                    "Protocol": {
+                                        "description": "The protocol. You can specify HTTP, HTTPS, or #{protocol}. You can redirect HTTP to HTTP, HTTP to HTTPS, and HTTPS to HTTPS. You cannot redirect HTTPS to HTTP.",
+                                        "pattern": "^(HTTPS?|#\\{protocol\\})$",
+                                        "type": "string"
+                                    },
+                                    "Query": {
+                                        "description": "The query parameters, URL-encoded when necessary, but not percent-encoded. Do not include the leading \"?\", as it is automatically added. You can specify any of the reserved keywords.",
+                                        "maxLength": 128,
+                                        "minLength": 0,
+                                        "type": "string"
+                                    },
+                                    "StatusCode": {
+                                        "description": "The HTTP redirect code. The redirect is either permanent (HTTP 301) or temporary (HTTP 302).",
+                                        "enum": [
+                                            "HTTP_301",
+                                            "HTTP_302"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "StatusCode"
+                                ],
+                                "type": "object"
+                            },
+                            "TargetGroupArn": {
+                                "description": "The Amazon Resource Name (ARN) of the target group. Specify only when <code>Type</code> is <code>forward</code>.",
+                                "type": "string"
+                            },
+                            "Type": {
+                                "description": "The type of action. Each rule must include exactly one of the following types of actions: <code>forward</code>, <code>fixed-response</code>, or <code>redirect</code>.",
+                                "enum": [
+                                    "forward",
+                                    "authenticate-oidc",
+                                    "authenticate-cognito",
+                                    "redirect",
+                                    "fixed-response"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "Type"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "ListenerArn": {
+                    "description": "The Amazon Resource Name (ARN) of the listener.",
+                    "type": "string"
+                },
+                "Port": {
+                    "description": "The port for connections from clients to the load balancer.",
+                    "maximum": 65535,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "Protocol": {
+                    "description": "The protocol for connections from clients to the load balancer. Application Load Balancers support the HTTP and HTTPS protocols. Network Load Balancers support the TCP and TLS protocols.",
+                    "enum": [
+                        "HTTP",
+                        "HTTPS",
+                        "TCP",
+                        "TLS"
+                    ],
+                    "type": "string"
+                },
+                "SslPolicy": {
+                    "description": "[HTTPS and TLS listeners] The security policy that defines which protocols and ciphers are supported. For more information, see <a href=\"https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies\">Security Policies</a> in the <i>Application Load Balancers Guide</i>.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ListenerArn"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

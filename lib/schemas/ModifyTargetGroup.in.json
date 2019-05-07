@@ -1,0 +1,119 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "example": {
+                "HealthCheckPort": "443",
+                "HealthCheckProtocol": "HTTPS",
+                "TargetGroupArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-https-targets/2453ed029918f21f"
+            },
+            "properties": {
+                "HealthCheckEnabled": {
+                    "description": "Indicates whether health checks are enabled.",
+                    "type": "boolean"
+                },
+                "HealthCheckIntervalSeconds": {
+                    "description": "<p>The approximate amount of time, in seconds, between health checks of an individual target. For Application Load Balancers, the range is 5–300 seconds. For Network Load Balancers, the supported values are 10 or 30 seconds.</p> <p>If the protocol of the target group is TCP, you can't modify this setting.</p>",
+                    "maximum": 300,
+                    "minimum": 5,
+                    "type": "integer"
+                },
+                "HealthCheckPath": {
+                    "description": "[HTTP/HTTPS health checks] The ping path that is the destination for the health check request.",
+                    "maxLength": 1024,
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "HealthCheckPort": {
+                    "description": "The port the load balancer uses when performing health checks on targets.",
+                    "type": "string"
+                },
+                "HealthCheckProtocol": {
+                    "description": "<p>The protocol the load balancer uses when performing health checks on targets. The TCP protocol is supported for health checks only if the protocol of the target group is TCP or TLS. The TLS protocol is not supported for health checks.</p> <p>If the protocol of the target group is TCP, you can't modify this setting.</p>",
+                    "enum": [
+                        "HTTP",
+                        "HTTPS",
+                        "TCP",
+                        "TLS"
+                    ],
+                    "type": "string"
+                },
+                "HealthCheckTimeoutSeconds": {
+                    "description": "<p>[HTTP/HTTPS health checks] The amount of time, in seconds, during which no response means a failed health check.</p> <p>If the protocol of the target group is TCP, you can't modify this setting.</p>",
+                    "maximum": 120,
+                    "minimum": 2,
+                    "type": "integer"
+                },
+                "HealthyThresholdCount": {
+                    "description": "The number of consecutive health checks successes required before considering an unhealthy target healthy.",
+                    "maximum": 10,
+                    "minimum": 2,
+                    "type": "integer"
+                },
+                "Matcher": {
+                    "description": "<p>[HTTP/HTTPS health checks] The HTTP codes to use when checking for a successful response from a target.</p> <p>If the protocol of the target group is TCP, you can't modify this setting.</p>",
+                    "properties": {
+                        "HttpCode": {
+                            "description": "<p>The HTTP codes.</p> <p>For Application Load Balancers, you can specify values between 200 and 499, and the default value is 200. You can specify multiple values (for example, \"200,202\") or a range of values (for example, \"200-299\").</p> <p>For Network Load Balancers, this is 200–399.</p>",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "HttpCode"
+                    ],
+                    "type": "object"
+                },
+                "TargetGroupArn": {
+                    "description": "The Amazon Resource Name (ARN) of the target group.",
+                    "type": "string"
+                },
+                "UnhealthyThresholdCount": {
+                    "description": "The number of consecutive health check failures required before considering the target unhealthy. For Network Load Balancers, this value must be the same as the healthy threshold count.",
+                    "maximum": 10,
+                    "minimum": 2,
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "TargetGroupArn"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

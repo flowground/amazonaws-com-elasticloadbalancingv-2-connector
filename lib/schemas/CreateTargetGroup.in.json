@@ -1,0 +1,149 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "example": {
+                "Name": "my-targets",
+                "Port": 80,
+                "Protocol": "HTTP",
+                "VpcId": "vpc-3ac0fb5f"
+            },
+            "properties": {
+                "HealthCheckEnabled": {
+                    "description": "Indicates whether health checks are enabled. If the target type is <code>instance</code> or <code>ip</code>, the default is <code>true</code>. If the target type is <code>lambda</code>, the default is <code>false</code>.",
+                    "type": "boolean"
+                },
+                "HealthCheckIntervalSeconds": {
+                    "description": "The approximate amount of time, in seconds, between health checks of an individual target. For Application Load Balancers, the range is 5–300 seconds. For Network Load Balancers, the supported values are 10 or 30 seconds. If the target type is <code>instance</code> or <code>ip</code>, the default is 30 seconds. If the target type is <code>lambda</code>, the default is 35 seconds.",
+                    "maximum": 300,
+                    "minimum": 5,
+                    "type": "integer"
+                },
+                "HealthCheckPath": {
+                    "description": "[HTTP/HTTPS health checks] The ping path that is the destination on the targets for health checks. The default is /.",
+                    "maxLength": 1024,
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "HealthCheckPort": {
+                    "description": "The port the load balancer uses when performing health checks on targets. The default is <code>traffic-port</code>, which is the port on which each target receives traffic from the load balancer.",
+                    "type": "string"
+                },
+                "HealthCheckProtocol": {
+                    "description": "The protocol the load balancer uses when performing health checks on targets. For Application Load Balancers, the default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is supported for health checks only if the protocol of the target group is TCP or TLS. The TLS protocol is not supported for health checks.",
+                    "enum": [
+                        "HTTP",
+                        "HTTPS",
+                        "TCP",
+                        "TLS"
+                    ],
+                    "type": "string"
+                },
+                "HealthCheckTimeoutSeconds": {
+                    "description": "The amount of time, in seconds, during which no response from a target means a failed health check. For Application Load Balancers, the range is 2–120 seconds and the default is 5 seconds if the target type is <code>instance</code> or <code>ip</code> and 30 seconds if the target type is <code>lambda</code>. For Network Load Balancers, this is 10 seconds for TCP and HTTPS health checks and 6 seconds for HTTP health checks.",
+                    "maximum": 120,
+                    "minimum": 2,
+                    "type": "integer"
+                },
+                "HealthyThresholdCount": {
+                    "description": "The number of consecutive health checks successes required before considering an unhealthy target healthy. For Application Load Balancers, the default is 5. For Network Load Balancers, the default is 3.",
+                    "maximum": 10,
+                    "minimum": 2,
+                    "type": "integer"
+                },
+                "Matcher": {
+                    "description": "[HTTP/HTTPS health checks] The HTTP codes to use when checking for a successful response from a target.",
+                    "properties": {
+                        "HttpCode": {
+                            "description": "<p>The HTTP codes.</p> <p>For Application Load Balancers, you can specify values between 200 and 499, and the default value is 200. You can specify multiple values (for example, \"200,202\") or a range of values (for example, \"200-299\").</p> <p>For Network Load Balancers, this is 200–399.</p>",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "HttpCode"
+                    ],
+                    "type": "object"
+                },
+                "Name": {
+                    "description": "<p>The name of the target group.</p> <p>This name must be unique per region per account, can have a maximum of 32 characters, must contain only alphanumeric characters or hyphens, and must not begin or end with a hyphen.</p>",
+                    "type": "string"
+                },
+                "Port": {
+                    "description": "The port on which the targets receive traffic. This port is used unless you specify a port override when registering the target. If the target is a Lambda function, this parameter does not apply.",
+                    "maximum": 65535,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "Protocol": {
+                    "description": "The protocol to use for routing traffic to the targets. For Application Load Balancers, the supported protocols are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP and TLS. If the target is a Lambda function, this parameter does not apply.",
+                    "enum": [
+                        "HTTP",
+                        "HTTPS",
+                        "TCP",
+                        "TLS"
+                    ],
+                    "type": "string"
+                },
+                "TargetType": {
+                    "description": "<p>The type of target that you must specify when registering targets with this target group. You can't specify targets for a target group using more than one target type.</p> <ul> <li> <p> <code>instance</code> - Targets are specified by instance ID. This is the default value.</p> </li> <li> <p> <code>ip</code> - Targets are specified by IP address. You can specify IP addresses from the subnets of the virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.</p> </li> <li> <p> <code>lambda</code> - The target groups contains a single Lambda function.</p> </li> </ul>",
+                    "enum": [
+                        "instance",
+                        "ip",
+                        "lambda"
+                    ],
+                    "type": "string"
+                },
+                "UnhealthyThresholdCount": {
+                    "description": "The number of consecutive health check failures required before considering a target unhealthy. For Application Load Balancers, the default is 2. For Network Load Balancers, this value must be the same as the healthy threshold count.",
+                    "maximum": 10,
+                    "minimum": 2,
+                    "type": "integer"
+                },
+                "VpcId": {
+                    "description": "The identifier of the virtual private cloud (VPC). If the target is a Lambda function, this parameter does not apply.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Name"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}
